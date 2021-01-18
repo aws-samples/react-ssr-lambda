@@ -24,11 +24,9 @@ This solution can only be provisioned in the us-east-1 Region as it deploys Lamb
 
     `git clone https://github.com/aws-samples/react-ssr-lambda.git`
 
-- Run the following commands in your terminal window, provide the name of the S3 bucket instead of `<you bucket name>`, for example `mybucket`, to deploy the static content
+- Run the following commands in your terminal window, provide the name of the S3 bucket instead of `<your bucket name>`, for example `mybucket`, to deploy the static content
 
     `cd react-ssr-lambda`
-
-    `export BUCKET_NAME=<you bucket name>`
 
     `cd ./cdk`
 
@@ -48,7 +46,7 @@ This solution can only be provisioned in the us-east-1 Region as it deploys Lamb
 
     `cd ../cdk`
 
-    `cdk deploy SSRAppStack --parameters mySiteBucketName=$BUCKET_NAME`
+    `cdk deploy SSRAppStack --parameters mySiteBucketName=<your bucket name>`
 
 - After successful deployment you will see output variables
 
