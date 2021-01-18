@@ -9,9 +9,9 @@
 /coverage
 
 # production
-/build
-/server-build
-/edge-build
+/build/*
+/server-build/*
+/edge-build/*
 
 #config
 config.json
