@@ -22,7 +22,7 @@ This solution can only be provisioned in the us-east-1 Region as it deploys Lamb
 ## Deployment
 - Clone git repository
 
-    `git clone https://gitlab.aws.dev/romboiko/react-ssr-lambda.git
+    `git clone https://github.com/aws-samples/react-ssr-lambda.git`
 
 - Run the following commands in your terminal window, provide the name of the S3 bucket instead of `<you bucket name>`, for example `mybucket`, to deploy the static content
 
