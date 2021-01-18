@@ -9,9 +9,12 @@
 /coverage
 
 # production
-/build/
-/server-build/
-/edge-build/
+/build/*
+!/build/.keep
+/server-build/*
+!/server-build/.keep
+/edge-build/*
+!/edge-build/.keep
 
 #config
 config.json
