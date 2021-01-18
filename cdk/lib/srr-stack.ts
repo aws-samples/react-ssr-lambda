@@ -108,13 +108,13 @@ export class SsrStack extends cdk.Stack {
     );
 
     new cdk.CfnOutput(this, "CF URL", {
-      value: distribution.distributionDomainName
+      value: `https://${distribution.distributionDomainName}`
     });
     new cdk.CfnOutput(this, "Lambda SSR URL", {
-      value: `${distribution.distributionDomainName}\\ssr`
+      value: `https://${distribution.distributionDomainName}/ssr`
     });
     new cdk.CfnOutput(this, "Lambda@Edge SSR URL", {
-      value: `${distribution.distributionDomainName}\\edgessr`
+      value: `https://${distribution.distributionDomainName}/edgessr`
     });
   }
 }
