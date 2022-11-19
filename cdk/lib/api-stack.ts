@@ -11,7 +11,7 @@ export class ApiStack extends Stack {
     super(scope, id, props);
 
     const apiFunction = new lambda.Function(this, "apiHandler", {
-      runtime: lambda.Runtime.NODEJS_12_X,
+      runtime: lambda.Runtime.NODEJS_18_X,
       code: lambda.Code.fromAsset("../simple-ssr/api"),
       memorySize: 128,
       timeout: Duration.seconds(5),

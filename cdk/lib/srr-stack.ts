@@ -4,6 +4,7 @@
 import {
   Duration,
   CfnOutput,
+  CfnParameter,
   Stack,
   StackProps,
   RemovalPolicy,
@@ -19,7 +20,13 @@ export class SsrStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
+    const mySiteBucketName = new CfnParameter(this, "mySiteBucketName", {
+      type: "String",
+      description: "The name of S3 bucket to upload react application"
+    });
+
     const mySiteBucket = new s3.Bucket(this, "ssr-site", {
+      bucketName: mySiteBucketName.valueAsString,
       websiteIndexDocument: "index.html",
       websiteErrorDocument: "error.html",
       publicReadAccess: false,
@@ -40,7 +47,7 @@ export class SsrStack extends Stack {
     });
 
     const ssrFunction = new lambda.Function(this, "ssrHandler", {
-      runtime: lambda.Runtime.NODEJS_12_X,
+      runtime: lambda.Runtime.NODEJS_16_X,
       code: lambda.Code.fromAsset("../simple-ssr/server-build"),
       memorySize: 128,
       timeout: Duration.seconds(5),
@@ -48,7 +55,7 @@ export class SsrStack extends Stack {
     });
 
     const ssrEdgeFunction = new lambda.Function(this, "ssrEdgeHandler", {
-      runtime: lambda.Runtime.NODEJS_12_X,
+      runtime: lambda.Runtime.NODEJS_16_X,
       code: lambda.Code.fromAsset("../simple-ssr/edge-build"),
       memorySize: 128,
       timeout: Duration.seconds(5),
