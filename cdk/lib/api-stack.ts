@@ -1,13 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import * as cdk from "@aws-cdk/core";
-import { Duration } from "@aws-cdk/core";
-import * as lambda from "@aws-cdk/aws-lambda";
-import * as apigw from "@aws-cdk/aws-apigateway";
+import * as cdk from "aws-cdk-lib";
+import { Duration } from "aws-cdk-lib";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as apigw from "aws-cdk-lib/aws-apigateway";
+import * as constructs from "constructs";
 
 export class ApiStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: constructs.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const apiFunction = new lambda.Function(this, "apiHandler", {
