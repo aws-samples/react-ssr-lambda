@@ -28,7 +28,7 @@ export class MyPipelineStack extends cdk.Stack {
             }
           ),
           installCommands: ["yarn install"],
-          commands: ["yarn run build", "yarn cdk synth"]
+          commands: ["cd ./cdk","yarn run build", "yarn cdk synth"]
         })
       });
     }
