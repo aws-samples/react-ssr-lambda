@@ -31,6 +31,10 @@ export class MyPipelineStack extends cdk.Stack {
         primaryOutputDirectory: "./cdk/cdk.out",
       })
     });
+
+    const mainStage = new MainStage(this, 'Main', props);
+
+    pipeline.addStage(mainStage); 
   }
 }
 
@@ -41,6 +45,17 @@ new MyPipelineStack(app, 'MyPipelineStack', {
     region: 'us-east-1',
   }
 });
+
+export class MainStage extends cdk.Stage {
+  constructor(scope: Construct, id: string, props?: cdk.StageProps) {
+    super(scope, id, props);
+
+    new ApiStack(this, "ApiStack", {
+      env: demoEnv
+    });
+
+  }
+} 
 
 // new ApiStack(app, "SSRApiStack", { env: demoEnv });
 // new SsrStack(app, "SSRAppStack", { env: demoEnv });
