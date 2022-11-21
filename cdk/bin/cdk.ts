@@ -38,7 +38,7 @@ export class MyPipelineStack extends cdk.Stack {
 new MyPipelineStack(app, 'MyPipelineStack', {
   env: {
     account: '263870947518',
-    region: 'eu-east-1',
+    region: 'us-east-1',
   }
 });
 
