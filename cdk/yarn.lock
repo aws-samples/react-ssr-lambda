@@ -1440,7 +1440,7 @@ __metadata:
     source-map-support: ^0.5.16
     ts-jest: ^26.5.4
     ts-node: ^8.1.0
-    typescript: ^3.9.9
+    typescript: ^4.2.0
   bin:
     cdk: bin/cdk.js
   languageName: unknown
@@ -5042,23 +5042,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-typescript@^3.9.9:
-  version: 3.9.10
-  resolution: "typescript@npm:3.9.10"
+typescript@^4.2.0:
+  version: 4.9.3
+  resolution: "typescript@npm:4.9.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 46c842e2cd4797b88b66ef06c9c41dd21da48b95787072ccf39d5f2aa3124361bc4c966aa1c7f709fae0509614d76751455b5231b12dbb72eb97a31369e1ff92
+  checksum: 17b8f816050b412403e38d48eef0e893deb6be522d6dc7caf105e54a72e34daf6835c447735fd2b28b66784e72bfbf87f627abb4818a8e43d1fa8106396128dc
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^3.9.9#~builtin<compat/typescript>":
-  version: 3.9.10
-  resolution: "typescript@patch:typescript@npm%3A3.9.10#~builtin<compat/typescript>::version=3.9.10&hash=d8b4e7"
+"typescript@patch:typescript@^4.2.0#~builtin<compat/typescript>":
+  version: 4.9.3
+  resolution: "typescript@patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=d8b4e7"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 8dcd46a8a2cb81198497f00c7721a34c914bf6b3241bf9687b868bdec9e59f1f44da41e7917cfc1dcabee4595229c73bab047f2d85c1aedacc0d1b526cc81534
+  checksum: c61b948d9181e52c3b12874f61e067720dd35f3e2ef0e77e5fdc314a1d15bbfd53e66a9110d3347d471632f9a4871d338df967e264fd20715431c6463f64546d
   languageName: node
   linkType: hard
 
