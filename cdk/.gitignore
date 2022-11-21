@@ -151,3 +151,9 @@ output/getitem.json
 # auth files other than example
 packages/infra/cognito/*.json
 
+# typescript build artifacts
+cdk/bin/*.js
+cdk/bin/*.d.ts
+
+cdk/**/*.js
+cdk/**/*.d.ts

@@ -12,6 +12,16 @@ import { CodeBuildStep, CodePipeline, CodePipelineSource, ShellStep } from 'aws-
 const demoEnv = { region: "us-east-1" };
 const app = new cdk.App();
 
+export class MainStage extends cdk.Stage {
+  constructor(scope: Construct, id: string, props?: cdk.StageProps) {
+    super(scope, id, props);
+    new ApiStack(this, "ApiStack", {
+      env: demoEnv
+    });
+
+  }
+} 
+
 export class MyPipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -46,16 +56,6 @@ new MyPipelineStack(app, 'MyPipelineStack', {
   }
 });
 
-export class MainStage extends cdk.Stage {
-  constructor(scope: Construct, id: string, props?: cdk.StageProps) {
-    super(scope, id, props);
-
-    new ApiStack(this, "ApiStack", {
-      env: demoEnv
-    });
-
-  }
-} 
 
 // new ApiStack(app, "SSRApiStack", { env: demoEnv });
 // new SsrStack(app, "SSRAppStack", { env: demoEnv });
