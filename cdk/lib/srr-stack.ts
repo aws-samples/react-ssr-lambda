@@ -1,16 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import * as cdk from "@aws-cdk/core";
-import { CfnParameter, Duration } from "@aws-cdk/core";
-import * as s3 from "@aws-cdk/aws-s3";
-import * as s3deploy from "@aws-cdk/aws-s3-deployment";
-import * as cloudfront from "@aws-cdk/aws-cloudfront";
-import * as lambda from "@aws-cdk/aws-lambda";
-import * as apigw from "@aws-cdk/aws-apigateway";
+import * as cdk from "aws-cdk-lib";
+import { CfnParameter, Duration } from "aws-cdk-lib";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
+import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as apigw from "aws-cdk-lib/aws-apigateway";
+import * as constructs from "constructs";
 
 export class SsrStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: constructs.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const mySiteBucketName = new CfnParameter(this, "mySiteBucketName", {
@@ -40,7 +41,7 @@ export class SsrStack extends cdk.Stack {
     });
 
     const ssrFunction = new lambda.Function(this, "ssrHandler", {
-      runtime: lambda.Runtime.NODEJS_12_X,
+      runtime: lambda.Runtime.NODEJS_14_X,
       code: lambda.Code.fromAsset("../simple-ssr/server-build"),
       memorySize: 128,
       timeout: Duration.seconds(5),
@@ -48,7 +49,7 @@ export class SsrStack extends cdk.Stack {
     });
 
     const ssrEdgeFunction = new lambda.Function(this, "ssrEdgeHandler", {
-      runtime: lambda.Runtime.NODEJS_12_X,
+      runtime: lambda.Runtime.NODEJS_14_X,
       code: lambda.Code.fromAsset("../simple-ssr/edge-build"),
       memorySize: 128,
       timeout: Duration.seconds(5),
