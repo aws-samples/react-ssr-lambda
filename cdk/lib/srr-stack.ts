@@ -15,7 +15,6 @@ export class SsrStack extends cdk.Stack {
     super(scope, id, props);
 
     const mySiteBucket = new s3.Bucket(this, "ssr-site", {
-      bucketName: "ssr-site",
       websiteIndexDocument: "index.html",
       websiteErrorDocument: "error.html",
       publicReadAccess: false,

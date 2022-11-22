@@ -1,9 +1,9 @@
 import {
-    CloudFormationClient,
-    DescribeStacksCommand,
-  } from '@aws-sdk/client-cloudformation';
-  import { writeFileSync } from 'fs';
-  import * as path from 'path';
+  CloudFormationClient,
+  DescribeStacksCommand,
+} from '@aws-sdk/client-cloudformation';
+import { writeFileSync } from 'fs';
+import * as path from 'path';
 
 const whitelist = ['apiurl'];
 
@@ -28,14 +28,16 @@ const whitelist = ['apiurl'];
           }),
           {} as Record<string, string>,
         );
-          //write variables to file
-          try {
-            writeFileSync(path.join(__dirname, 'config.json'), JSON.stringify(variables));
-          }
-          catch (err) {
-            console.error(err);
-          }
-          
+      //write variables to file
+      try {
+        const filePath = path.join(__dirname, 'config.json');
+        console.log("filePath", filePath);
+        writeFileSync(path.join(filePath, 'config.json'), JSON.stringify(variables));
+      }
+      catch (err) {
+        console.error(err);
+      }
+
     }
   } catch {
     /* NOOP */
