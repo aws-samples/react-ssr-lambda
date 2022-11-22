@@ -12,10 +12,20 @@ import { CodeBuildStep, CodePipeline, CodePipelineSource, ShellStep } from 'aws-
 const demoEnv = { region: "us-east-1" };
 const app = new cdk.App();
 
-export class MainStage extends cdk.Stage {
+export class APIStage extends cdk.Stage {
   constructor(scope: Construct, id: string, props?: cdk.StageProps) {
     super(scope, id, props);
     new ApiStack(this, "ApiStack", {
+      env: demoEnv
+    });
+
+  }
+} 
+
+export class SsrStage extends cdk.Stage {
+  constructor(scope: Construct, id: string, props?: cdk.StageProps) {
+    super(scope, id, props);
+    new SsrStack(this, "SsrStack", {
       env: demoEnv
     });
 
@@ -43,11 +53,19 @@ export class MyPipelineStack extends cdk.Stack {
     });
 
     const genConfigStep = new ShellStep("GenConfigStep", {
-      commands: ["echo here2"],
+      commands: ["cd cdkUtils", "yarn install", "yarn run build", "node ./dist/export-cdk-outputs.js"],
     });
     
-    const mainStage = pipeline.addStage(new MainStage(this, 'Main', props)); 
-    mainStage.addPost(genConfigStep);
+    const apiStage = pipeline.addStage(new APIStage(this, 'API', props)); 
+    apiStage.addPost(genConfigStep);
+
+    const buildSsrStep = new ShellStep("BuildSsrStep", {
+      commands: ["cd simple-ssr", "yarn install", "yarn run build"],
+    });    
+
+    const ssrStage = pipeline.addStage(new SsrStage(this, 'SSR', props));
+    ssrStage.addPre(buildSsrStep);
+
   }
 }
 
