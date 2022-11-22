@@ -47,7 +47,7 @@ export class MyPipelineStack extends cdk.Stack {
               "arn:aws:codestar-connections:us-west-1:263870947518:connection/7d190900-3cfe-4f09-b4ad-60b1ad7a1c0d"
           }
         ),
-        commands: ["yarn install", "cd simple-ssr", "yarn run build", "cd ./cdk",  "yarn run build", "yarn cdk synth"],
+        commands: ["yarn install", "cd simple-ssr", "yarn run build", "cd ./../cdk",  "yarn run build", "yarn cdk synth"],
         primaryOutputDirectory: "./cdk/cdk.out",
       })
 
