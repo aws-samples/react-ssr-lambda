@@ -16,9 +16,6 @@
 /edge-build/*
 !/edge-build/.keep
 
-#config
-config.json
-
 # misc
 .DS_Store
 .env.local
