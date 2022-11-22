@@ -11,8 +11,12 @@ import * as apigw from "aws-cdk-lib/aws-apigateway";
 import * as constructs from "constructs";
 
 export class SsrStack extends cdk.Stack {
-  constructor(scope: constructs.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: constructs.Construct, id: string, apiUrl: string, props?: cdk.StackProps) {
     super(scope, id, props);
+
+    const appConfig = {
+      apiUrl: apiUrl,
+    };
 
     const mySiteBucket = new s3.Bucket(this, "ssr-site", {
       websiteIndexDocument: "index.html",
@@ -30,7 +34,7 @@ export class SsrStack extends cdk.Stack {
     mySiteBucket.grantRead(originAccessIdentity);
 
     new s3deploy.BucketDeployment(this, "Client-side React app", {
-      sources: [s3deploy.Source.asset("../simple-ssr/build/")],
+      sources: [s3deploy.Source.asset("../simple-ssr/build/"),s3deploy.Source.jsonData('config.json', appConfig)],
       destinationBucket: mySiteBucket
     });
 

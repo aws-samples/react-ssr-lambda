@@ -13,24 +13,29 @@ const demoEnv = { region: "us-east-1" };
 const app = new cdk.App();
 
 export class APIStage extends cdk.Stage {
+  private apiStack: ApiStack;
   constructor(scope: Construct, id: string, props?: cdk.StageProps) {
     super(scope, id, props);
-    new ApiStack(this, "ApiStack", {
+    this.apiStack = new ApiStack(this, "ApiStack", {
       env: demoEnv
     });
-
   }
-} 
+  public getApiUrl(): string {
+    return this.apiStack.apiUrl;
+  } 
+
+}
 
 export class SsrStage extends cdk.Stage {
-  constructor(scope: Construct, id: string, props?: cdk.StageProps) {
+  constructor(scope: Construct, id: string, apiUrl:string, props?: cdk.StageProps) {
     super(scope, id, props);
-    new SsrStack(this, "SsrStack", {
+    new SsrStack(this, "SsrStack", apiUrl,
+    {
       env: demoEnv
     });
 
   }
-} 
+}
 
 export class MyPipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -47,26 +52,15 @@ export class MyPipelineStack extends cdk.Stack {
               "arn:aws:codestar-connections:us-west-1:263870947518:connection/7d190900-3cfe-4f09-b4ad-60b1ad7a1c0d"
           }
         ),
-        commands: ["yarn install", "cd simple-ssr", "yarn run build-all", "cd ./../cdk",  "yarn run build", "yarn cdk synth"],
+        commands: ["yarn install", "cd simple-ssr", "yarn run build-all", "cd ./../cdk", "yarn run build", "yarn cdk synth"],
         primaryOutputDirectory: "./cdk/cdk.out",
       })
 
     });
 
-    const genConfigStep = new ShellStep("GenConfigStep", {
-       commands: ["cd cdkUtils", "yarn install", "yarn run build", "node ./dist/export-cdk-outputs.js"],
-        primaryOutputDirectory: "./cdkUtils",
-    });
-    
-    const apiStage = pipeline.addStage(new APIStage(this, 'API', props)); 
-    apiStage.addPost(genConfigStep);
-
-    const copyConfigStep = new ShellStep("CopyConfigStep", {
-       commands: ["ls ./cdkUtils"],
-    });    
-
-    const ssrStage = pipeline.addStage(new SsrStage(this, 'SSR', props));
-    ssrStage.addPost(copyConfigStep);
+    const apiStage = new APIStage(this, 'APIStage');
+    pipeline.addStage(apiStage);
+    pipeline.addStage(new SsrStage(this, 'SSR', apiStage.getApiUrl(), props));
 
   }
 }
