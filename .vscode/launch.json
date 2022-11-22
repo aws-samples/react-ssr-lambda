@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug TS",
+            "preLaunchTask": "tsc build debug",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "runtimeArgs": [
+                "-r",
+                "./node_modules/ts-node/register/transpile-only"
+            ],
+            "args": [
+                "${file}"
+            ]
+        }
+
+    ]
+}

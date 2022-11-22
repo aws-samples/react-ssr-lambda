@@ -1,4 +1,10 @@
 {
+  "ts-node": {
+    // these options are overrides used only by ts-node
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
   "compilerOptions": {
     "target": "ES2018",
     "module": "commonjs",
@@ -18,7 +24,8 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "typeRoots": ["./node_modules/@types"],
-    "outDir": "dist",
+    "outDir": "dist-debug",
+    "rootDir": "src",
   },
-  "exclude": ["cdk.out"]
+  "exclude": ["./dist*/**/*"]
 }

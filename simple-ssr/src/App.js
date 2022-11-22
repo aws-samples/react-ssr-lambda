@@ -11,7 +11,7 @@ const App = ({ isSSR, ssrData }) => {
   const [result, setResult] = useState({ loading: true, products: null });
   useEffect(() => {
     const getData = async () => {
-      const url = config.SSRApiStack.apiurl;
+      const url = config.apiurl;
       try {
         let result = await axios.get(url);
         setResult({ loading: false, products: result.data });

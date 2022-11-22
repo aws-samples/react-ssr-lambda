@@ -42,9 +42,12 @@ export class MyPipelineStack extends cdk.Stack {
       })
     });
 
-    const mainStage = new MainStage(this, 'Main', props);
-
-    pipeline.addStage(mainStage); 
+    const genConfigStep = new ShellStep("GenConfigStep", {
+      commands: ["echo here2"],
+    });
+    
+    const mainStage = pipeline.addStage(new MainStage(this, 'Main', props)); 
+    mainStage.addPost(genConfigStep);
   }
 }
 
