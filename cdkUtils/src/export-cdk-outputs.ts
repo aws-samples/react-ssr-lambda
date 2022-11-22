@@ -30,7 +30,7 @@ const whitelist = ['apiurl'];
         );
           //write variables to file
           try {
-            writeFileSync(path.join(__dirname, '../../simple-ssr/src/config.json'), JSON.stringify(variables));
+            writeFileSync(path.join(__dirname, 'config.json'), JSON.stringify(variables));
           }
           catch (err) {
             console.error(err);

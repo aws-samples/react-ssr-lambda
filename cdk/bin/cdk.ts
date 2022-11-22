@@ -53,19 +53,20 @@ export class MyPipelineStack extends cdk.Stack {
 
     });
 
-    // const genConfigStep = new ShellStep("GenConfigStep", {
-    //   commands: ["cd cdkUtils", "yarn install", "yarn run build", "node ./dist/export-cdk-outputs.js"],
-    // });
+    const genConfigStep = new ShellStep("GenConfigStep", {
+       commands: ["cd cdkUtils", "yarn install", "yarn run build", "node ./dist/export-cdk-outputs.js"],
+        primaryOutputDirectory: "./cdkUtils",
+    });
     
     const apiStage = pipeline.addStage(new APIStage(this, 'API', props)); 
-    // apiStage.addPost(genConfigStep);
+    apiStage.addPost(genConfigStep);
 
-    // const buildSsrStep = new ShellStep("BuildSsrStep", {
-    //   commands: ["cd simple-ssr", "yarn install", "yarn run build"],
-    // });    
+    const copyConfigStep = new ShellStep("CopyConfigStep", {
+       commands: ["ls ./cdkUtils"],
+    });    
 
     const ssrStage = pipeline.addStage(new SsrStage(this, 'SSR', props));
-    // ssrStage.addPre(buildSsrStep);
+    ssrStage.addPost(copyConfigStep);
 
   }
 }

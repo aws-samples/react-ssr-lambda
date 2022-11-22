@@ -14,13 +14,8 @@ export class SsrStack extends cdk.Stack {
   constructor(scope: constructs.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const mySiteBucketName = new CfnParameter(this, "mySiteBucketName", {
-      type: "String",
-      description: "The name of S3 bucket to upload react application"
-    });
-
     const mySiteBucket = new s3.Bucket(this, "ssr-site", {
-      bucketName: mySiteBucketName.valueAsString,
+      bucketName: "ssr-site",
       websiteIndexDocument: "index.html",
       websiteErrorDocument: "error.html",
       publicReadAccess: false,
