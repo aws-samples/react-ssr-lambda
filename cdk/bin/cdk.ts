@@ -47,28 +47,28 @@ export class MyPipelineStack extends cdk.Stack {
               "arn:aws:codestar-connections:us-west-1:263870947518:connection/7d190900-3cfe-4f09-b4ad-60b1ad7a1c0d"
           }
         ),
-        commands: ["echo here1", "cd ./cdk", "yarn install", "yarn run build", "yarn cdk synth"],
+        commands: ["yarn install", "cd simple-ssr", "yarn run build", "cd ./cdk",  "yarn run build", "yarn cdk synth"],
         primaryOutputDirectory: "./cdk/cdk.out",
       })
+
     });
 
-    const genConfigStep = new ShellStep("GenConfigStep", {
-      commands: ["cd cdkUtils", "yarn install", "yarn run build", "node ./dist/export-cdk-outputs.js"],
-    });
+    // const genConfigStep = new ShellStep("GenConfigStep", {
+    //   commands: ["cd cdkUtils", "yarn install", "yarn run build", "node ./dist/export-cdk-outputs.js"],
+    // });
     
     const apiStage = pipeline.addStage(new APIStage(this, 'API', props)); 
-    apiStage.addPost(genConfigStep);
+    // apiStage.addPost(genConfigStep);
 
-    const buildSsrStep = new ShellStep("BuildSsrStep", {
-      commands: ["cd simple-ssr", "yarn install", "yarn run build"],
-    });    
+    // const buildSsrStep = new ShellStep("BuildSsrStep", {
+    //   commands: ["cd simple-ssr", "yarn install", "yarn run build"],
+    // });    
 
     const ssrStage = pipeline.addStage(new SsrStage(this, 'SSR', props));
-    ssrStage.addPre(buildSsrStep);
+    // ssrStage.addPre(buildSsrStep);
 
   }
 }
-
 
 new MyPipelineStack(app, 'MyPipelineStack', {
   env: {
@@ -76,10 +76,6 @@ new MyPipelineStack(app, 'MyPipelineStack', {
     region: 'us-east-1',
   }
 });
-
-
-// new ApiStack(app, "SSRApiStack", { env: demoEnv });
-// new SsrStack(app, "SSRAppStack", { env: demoEnv });
 
 app.synth();
 

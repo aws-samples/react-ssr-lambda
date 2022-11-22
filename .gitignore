@@ -151,3 +151,4 @@ output/getitem.json
 # auth files other than example
 packages/infra/cognito/*.json
 
+node_modules
